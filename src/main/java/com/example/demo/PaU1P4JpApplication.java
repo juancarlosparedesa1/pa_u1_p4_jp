@@ -19,6 +19,8 @@ public class PaU1P4JpApplication implements CommandLineRunner {
 		 * Spring framework es un framework que permite la construcion/desarrollo de
 		 * aplicaciones empresariales basadas en spring comentario luego del almuerzo
 		 */
+		
+		//commit subida de prueba antes del taller
 
 	}
 
