@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.time.LocalDateTime;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,9 +21,15 @@ public class PaU1P4JpApplication implements CommandLineRunner {
 		 * Spring framework es un framework que permite la construcion/desarrollo de
 		 * aplicaciones empresariales basadas en spring comentario luego del almuerzo
 		 */
-		
-		//commit subida de prueba antes del taller
 
+		// commit subida de prueba antes del taller
+
+		Profesor profesor = new Profesor();
+		profesor.setApellido("Paredes");
+		profesor.setCedula("1726897299");
+		profesor.setFechaNacimiento(LocalDateTime.now());
+		profesor.setNombre("juan Carlos");
+		System.out.println(profesor);
 	}
 
 }
