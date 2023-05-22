@@ -11,6 +11,7 @@ import com.example.demo.repository.modelo.Estudiante;
 public class EstudianteRepositoryImpl implements EstudianteRepository {
 
 	private static List<Estudiante> baseDatos = new ArrayList<>();
+	// private static List<Estudiante> baseDatos = new ArrayList<>();
 
 	@Override
 	public void insertar(Estudiante estudiante) {
