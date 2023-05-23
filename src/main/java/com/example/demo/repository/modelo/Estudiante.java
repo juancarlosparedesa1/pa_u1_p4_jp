@@ -8,8 +8,7 @@ public class Estudiante {
 	private String apellido;
 	private String cedula;
 	private LocalDateTime fechaNacimiento;
-	
-	
+
 	// get y set
 
 	public String getNombre() {
@@ -44,4 +43,11 @@ public class Estudiante {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
+	@Override
+	public String toString() {
+		return "Estudiante [nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula + ", fechaNacimiento="
+				+ fechaNacimiento + "]";
+	}
+
+	//to string
 }

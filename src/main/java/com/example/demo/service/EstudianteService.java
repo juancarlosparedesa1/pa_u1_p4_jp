@@ -1,23 +1,24 @@
-package com.example.demo.repository;
+package com.example.demo.service;
 
 import java.util.List;
 
 import com.example.demo.repository.modelo.Estudiante;
 
-public interface EstudianteRepository {
+public interface EstudianteService {
+	// guardaactualizarbuscarporcedulaborrarreportede todos
 	// metodos crud
-	public void insertar(Estudiante estudiante);
+	public void guardar(Estudiante estudiante);
 
 	public void actualizar(Estudiante estudiante);
 
 	// buscar o seleccionar es valido
 	// se busca por un identificacdor
-	public Estudiante seleccionar(String cedula);
+	public Estudiante buscarPorCedula(String cedula);
 
 	// eliminamos por un identificador
-	public void eliminar(String cedula);
+	public void borrar(String cedula);
 
 	// metodo seleccionar todos
 	// debe retornar una lista de estudiantes
-	public List<Estudiante> seleccionarTodos();
+	public List<Estudiante> reporteTodos();
 }
