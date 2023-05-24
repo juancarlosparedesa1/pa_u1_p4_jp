@@ -39,7 +39,7 @@ public class EstudianteRepositoryImpl1 implements EstudianteRepository {
 			if (cedula.equals(estu.getCedula())) {
 				estuEncontrado = estu;
 			}
-
+			
 		}
 		return estuEncontrado;
 	}

@@ -20,4 +20,5 @@ public interface EstudianteRepository {
 	// metodo seleccionar todos
 	// debe retornar una lista de estudiantes
 	public List<Estudiante> seleccionarTodos();
+
 }
