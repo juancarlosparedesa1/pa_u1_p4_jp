@@ -62,7 +62,7 @@ public class PaU1E1JpApplication implements CommandLineRunner {
 		// 4.Eliminar estudiante
 		System.out.println("Eliminacion Estudiantes---");
 		System.out.println("Eliminando estudiantes.....");
-		this.estudianteService.borrar("1726897299");
+		// this.estudianteService.borrar("1726897299");
 		// 5.imprimir reporte
 		// verificamos si se guardo el estudiant en la base de datos
 		List<Estudiante> reporte = this.estudianteService.ReporteTodos();
