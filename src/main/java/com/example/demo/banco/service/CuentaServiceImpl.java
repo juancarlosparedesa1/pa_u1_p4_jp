@@ -32,7 +32,7 @@ public class CuentaServiceImpl implements CuentaRepository {
 
 	@Override
 	public Cuenta SeleccionarPorNumero(String numero) {
-		// TODO Auto-generated method stub
+		// calculos llamo a la sevice
 		return this.cuentaRepository.SeleccionarPorNumero(numero);
 	}
 
