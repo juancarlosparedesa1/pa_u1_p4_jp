@@ -2,8 +2,10 @@ package com.example.demo.banco.service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.banco.repository.CuentaRepository;
@@ -18,6 +20,10 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 	private CuentaRepository cuentaRepository;
 	@Autowired
 	private TransferenciaRepository transferenciaRepository;
+
+	@Autowired
+	@Qualifier("nacional")
+	private MondoDebitarService debitarService;
 
 	@Override
 	public void guardar(Transferencia transferencia) {
@@ -48,17 +54,31 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 		// logica de negocio
 		// calculos-orden-
 		// que hace el negocio
+
+//		if(tipo.equals("Nacional"))
+//		else {
+//			///internacional
+//		}else{
+//		if() {
+//			//familiares
+//		}else{
+		// corporativo
+//	}
+//	}
+
 		// 1.Consultar la cuenta de origen por elnumero
 
 		Cuenta ctaOrigen = this.cuentaRepository.SeleccionarPorNumero(numeroCtaOrigen);
 		// 2.Consultar el saldo de la cuenta Origen
+
+		BigDecimal montoDebitar = this.debitarService.calcular(monto);
 
 		BigDecimal saldoOrigen = ctaOrigen.getSaldo();
 
 		// 3.Validar si el saldo es suficiente
 
 		// si es menor que cero el saldo origen en mayor que el monto
-		if (monto.compareTo(saldoOrigen) <= 0) {// si es mayor que cero el monto es mayor
+		if (montoDebitar.compareTo(saldoOrigen) <= 0) {// si es mayor que cero el monto es mayor
 
 			// 5.Si es suficiente ir al paso 6.
 			// 6.Realizamos la resta del saldo origen - monto
@@ -95,6 +115,12 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 			System.out.println("Saldo no disponible,su saldo es:" + saldoOrigen);
 		}
 
+	}
+
+	@Override
+	public List<Transferencia> SeleccionarTodos() {
+		// TODO Auto-generated method stub
+		return this.transferenciaRepository.SeleccionarTodos();
 	}
 
 }

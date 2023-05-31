@@ -1,5 +1,7 @@
 package com.example.demo.banco.repository;
 
+import java.util.List;
+
 import com.example.demo.banco.repository.modelo.Transferencia;
 
 public interface TransferenciaRepository {
@@ -11,4 +13,6 @@ public interface TransferenciaRepository {
 	public void elimiar(String numero);
 
 	public Transferencia SeleccionarPorNumero(String numero);
+
+	public List<Transferencia> SeleccionarTodos();
 }

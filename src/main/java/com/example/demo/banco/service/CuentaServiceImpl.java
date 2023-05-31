@@ -7,13 +7,13 @@ import com.example.demo.banco.repository.CuentaRepository;
 import com.example.demo.banco.repository.modelo.Cuenta;
 
 @Service
-public class CuentaServiceImpl implements CuentaRepository {
+public class CuentaServiceImpl implements CuentaService {
 
 	@Autowired
 	private CuentaRepository cuentaRepository;
 
 	@Override
-	public void insertar(Cuenta cuenta) {
+	public void guardar(Cuenta cuenta) {
 		// TODO Auto-generated method stub
 		this.cuentaRepository.insertar(cuenta);
 	}
@@ -22,17 +22,19 @@ public class CuentaServiceImpl implements CuentaRepository {
 	public void actualizar(Cuenta cuenta) {
 		// TODO Auto-generated method stub
 		this.cuentaRepository.actualizar(cuenta);
+
 	}
 
 	@Override
-	public void elimiar(String numero) {
+	public void borrar(String numero) {
 		// TODO Auto-generated method stub
 		this.cuentaRepository.elimiar(numero);
+
 	}
 
 	@Override
-	public Cuenta SeleccionarPorNumero(String numero) {
-		// calculos llamo a la sevice
+	public Cuenta buscarPorNumero(String numero) {
+		// TODO Auto-generated method stub
 		return this.cuentaRepository.SeleccionarPorNumero(numero);
 	}
 
