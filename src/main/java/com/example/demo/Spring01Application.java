@@ -2,16 +2,16 @@ package com.example.demo;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.example.demo.banco.repository.modelo.Cuenta;
-import com.example.demo.banco.repository.modelo.Transferencia;
 import com.example.demo.banco.service.CuentaService;
+import com.example.demo.banco.service.TransferenciaComisionService;
 import com.example.demo.banco.service.TransferenciaService;
 
 @SpringBootApplication
@@ -21,6 +21,10 @@ public class Spring01Application implements CommandLineRunner {
 	private CuentaService cuentaService;
 	@Autowired
 	private TransferenciaService transferenciaService;
+
+	@Autowired
+//	@Qualifier("internacional")
+//	private TransferenciaComisionService transferenciaComisionService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Spring01Application.class, args);

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.banco.repository.CuentaRepository;
@@ -19,6 +20,8 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 	private TransferenciaRepository transferenciaRepository;
 	@Autowired
 	private CuentaRepository cuentaRepository;
+	@Autowired
+	private TransferenciaComisionService transferenciaComision;
 
 	@Override
 	public void guardar(Transferencia transferencia) {
@@ -63,16 +66,17 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 		// 3. validar si el saldo es suficiente
 		// comparar el monto con el sado de la cuenta origen
 		// comparaciones en bigdecimal
+		BigDecimal montoDebitar = this.transferenciaComision.calcularMontoComision(monto);
 
-		if (monto.compareTo(saldoCtaOrigen) <= 0) { // si es 0 o -1 primero sea menor que el segundo
+		if (montoDebitar.compareTo(saldoCtaOrigen) <= 0) { // si es 0 o -1 primero sea menor que el segundo
 
 			// 5. Si es suficiente ir al paso 6
 			System.out.println("Saldo cuenta origen antes transferencia:");
 			System.out.println(saldoCtaOrigen);
 			// 6. Realizamos la resta del saldo origen menos el monto
-			BigDecimal comision = monto.multiply(new BigDecimal(0.05));
-			System.out.println("La comision es:" + comision);
-			BigDecimal nuevoSaldoCuentaOrigen = saldoCtaOrigen.subtract(monto).subtract(comision);
+			// BigDecimal comision = monto.multiply(new BigDecimal(0.05));
+			// System.out.println("La comision es:" + comision);
+			BigDecimal nuevoSaldoCuentaOrigen = saldoCtaOrigen.subtract(montoDebitar);
 
 			// 7. Actualizamos el saldo de la cuenta Origen
 			ctaOrigen.setSaldo(nuevoSaldoCuentaOrigen);
