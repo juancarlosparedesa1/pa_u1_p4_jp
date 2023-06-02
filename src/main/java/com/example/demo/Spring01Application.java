@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,69 +9,52 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.demo.alumnos.repository.modelo.Estudiante;
-import com.example.demo.alumnos.service.EstudianteService;
+import com.example.demo.banco.repository.modelo.Cuenta;
+import com.example.demo.banco.repository.modelo.Transferencia;
+import com.example.demo.banco.service.CuentaService;
+import com.example.demo.banco.service.TransferenciaService;
 
 @SpringBootApplication
 public class Spring01Application implements CommandLineRunner {
 
 	@Autowired
-	private EstudianteService estudianteService;
+	private CuentaService cuentaService;
+	@Autowired
+	private TransferenciaService transferenciaService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(Spring01Application.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		//1.insertar estudiantes
-		//creamos un estudiantes
-		Estudiante estudiante1 = new Estudiante();
-		estudiante1.setNombre("juan carlos");
-		estudiante1.setApellido("paredes");
-		estudiante1.setCedula("1726897299");
-		estudiante1.setFechaInscripción(LocalDateTime.now());
-		//agreggamos insertamos guardamos estudiante en la bd
-		this.estudianteService.insertar(estudiante1);
-		Estudiante estudiante2 = new Estudiante();
-		estudiante2.setNombre("Jean");
-		estudiante2.setApellido("prado");
-		estudiante2.setCedula("1726890000");
-		estudiante2.setFechaInscripción(LocalDateTime.now());
-		//agregamos insertamos guardamos estudiante en la bd
-		this.estudianteService.insertar(estudiante2);
-		System.out.println("Estudiante/es insertado/os");
-		//2.Seleccionar -buscar --leer
-		System.out.println("studiante encontrado!!!");
-		
-		System.out.println(this.estudianteService.buscar("1726897299"));
-		
-		//3.Actualizar-modificar-cambiar
-		estudiante1.setApellido("Angulo");
-		this.estudianteService.actualizar(estudiante1);
-		System.out.println("Estudiante modificado!!");
-		
-		//4.eliminar-borrar-vender-quitar
-		this.estudianteService.borrar("1726890000");
-		System.out.println("Estudiante eliminado!!");
-		//5.reporte
-		//creamos la lista
-		System.out.println("Imprime  reporte!!!");
-		List<Estudiante>reporte = this.estudianteService.reporte();
-		//recorremos la lista para imprimr
-		for (Estudiante estu : reporte) {
-			System.out.println("Nombre: "+estu.getNombre());
-			System.out.println("Apellido:"+estu.getApellido());
-			System.out.println("Cedula:"+estu.getCedula());
-			System.out.println("Fecha Inscripción"+estu.getFechaInscripción());
-		}
-		
-		
-		
-		
-		
-		
-		
+
+		// 1.Crear dos cuentas bancarias
+		Cuenta cuenta1 = new Cuenta();
+		cuenta1.setCedula("1726890000");
+		cuenta1.setFechaApertura(LocalDateTime.now());
+		cuenta1.setNumero("001");
+		cuenta1.setSaldo(new BigDecimal(200));
+		cuenta1.setTipo("A");
+		this.cuentaService.guardar(cuenta1);
+		Cuenta cuenta2 = new Cuenta();
+		cuenta2.setCedula("1726000000");
+		cuenta2.setFechaApertura(LocalDateTime.now());
+		cuenta2.setNumero("002");
+		cuenta2.setSaldo(new BigDecimal(500));
+		cuenta2.setTipo("C");
+		this.cuentaService.guardar(cuenta2);
+		System.out.println(cuenta1);
+		System.out.println(cuenta2);
+
+		// 2.Realizar una transferencia con los datos del punto anterior
+		this.transferenciaService.realizar("001", "002", new BigDecimal(100));
+
+		// 3.Buscar e imprimir el saldo de la cuenta origen
+
+		System.out.println("Saldo cuenta origen: " + this.cuentaService.Seleccionar(cuenta1.getNumero()).getSaldo());
+		System.out.println("Saldo cuenta destino: " + this.cuentaService.Seleccionar(cuenta2.getNumero()).getSaldo());
+
 	}
 
 }

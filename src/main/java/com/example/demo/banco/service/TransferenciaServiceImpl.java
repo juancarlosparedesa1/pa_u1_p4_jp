@@ -67,29 +67,35 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 		if (monto.compareTo(saldoCtaOrigen) <= 0) { // si es 0 o -1 primero sea menor que el segundo
 
 			// 5. Si es suficiente ir al paso 6
-
+			System.out.println("Saldo cuenta origen antes transferencia:");
+			System.out.println(saldoCtaOrigen);
 			// 6. Realizamos la resta del saldo origen menos el monto
-			BigDecimal nuevoSaldoCuentaOrigen = saldoCtaOrigen.subtract(monto);
+			BigDecimal comision = monto.multiply(new BigDecimal(0.05));
+			System.out.println("La comision es:" + comision);
+			BigDecimal nuevoSaldoCuentaOrigen = saldoCtaOrigen.subtract(monto).subtract(comision);
 
 			// 7. Actualizamos el saldo de la cuenta Origen
 			ctaOrigen.setSaldo(nuevoSaldoCuentaOrigen);
 			this.cuentaRepository.actualizar(ctaOrigen);
-
+			System.out.println("Saldo cuenta origen depues transferencia:");
+			System.out.println(nuevoSaldoCuentaOrigen);
 			// 8. Consultamos la cuenta de Destino por el número
 			Cuenta ctaDestino = this.cuentaRepository.Seleccionar(cuentaDestino);
 
 			// 9. Consultamos el saldo de la cuenta destino
-			BigDecimal saldoCtaDestino = ctaOrigen.getSaldo();
-
+			BigDecimal saldoCtaDestino = ctaDestino.getSaldo();
+			System.out.println("Saldo cuente destino antes de la transferencia");
+			System.out.println(saldoCtaDestino);
 			// 10. Realizamos la suma del saldo destino mas el monto
 			BigDecimal nuevoSaldoCuentaDestino = saldoCtaDestino.add(monto);
-
 			// 11. Actualizamos el nuevo saldo de la cuenta destino
 			ctaDestino.setSaldo(nuevoSaldoCuentaDestino);
 			this.cuentaRepository.actualizar(ctaDestino);
-			
-			//comision
-			
+			System.out.println("Saldo cuentad destino despues de la transferencia:");
+			System.out.println(nuevoSaldoCuentaDestino);
+
+			// comision
+
 			// 12. Creamos el registro/transferencia
 			Transferencia transfer = new Transferencia();
 			transfer.setFecha(LocalDateTime.now());
@@ -97,7 +103,6 @@ public class TransferenciaServiceImpl implements TransferenciaService {
 			transfer.setCuentaDestino(ctaDestino);
 			transfer.setMonto(monto);
 			transfer.setNumero("001");
-			
 
 		} else {
 			// 4. Si no es suficiente imprimir mensaje de no hay saldo disponible

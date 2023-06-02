@@ -54,9 +54,10 @@ public class Cuenta {
 	}
 
 	// to String
+
 	@Override
 	public String toString() {
-		return "Transferencia [numero=" + numero + ", tipo=" + tipo + ", saldo=" + saldo + ", cedula=" + cedula
+		return "Cuenta [numero=" + numero + ", tipo=" + tipo + ", saldo=" + saldo + ", cedula=" + cedula
 				+ ", fechaApertura=" + fechaApertura + "]";
 	}
 
