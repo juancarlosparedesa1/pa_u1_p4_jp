@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.matriculacionVehiculos.repository.MatriculaRepository;
@@ -24,6 +25,9 @@ public class MatriculaServiceImpl implements MatriculaService {
 	private PropietarioRepository propietarioRepository;
 	@Autowired
 	private VehiculoRepository vehiculoRepository;
+	@Autowired
+	@Qualifier("manual")
+	private VehiculoMatriculaService vehMatriculaService;
 
 	@Override
 	public void crear(Matricula matricula) {
@@ -44,23 +48,24 @@ public class MatriculaServiceImpl implements MatriculaService {
 		Matricula mat = new Matricula();
 		mat.setFechaMatricula(LocalDateTime.now());
 		// calculamos el valor de la matricula
+		BigDecimal valorMatricula = this.vehMatriculaService.calculoValorMatricula(vehi.getPrecio());
 
-		// tradicional
+		// Qualifiers
 		// creamos la variable (atributo) valor matricula
 		// BigDecimal valorMatricula = new BigDecimal(0.0);
 		// mat.setValorMatricula(new BigDecimal(0.0));
-		BigDecimal valorMatricula = null;
-		if (vehi.getTipo().equalsIgnoreCase("m")) {
-			valorMatricula = vehi.getPrecio().add(vehi.getPrecio().multiply(new BigDecimal(0.1)));
-		} else {
-			if (vehi.getTipo().equalsIgnoreCase("a")) {
-				valorMatricula = vehi.getPrecio().add(vehi.getPrecio().multiply(new BigDecimal(0.15)));
-			}
-		}
-		BigDecimal valor = new BigDecimal(3000);
-		if (valorMatricula.compareTo(valor) > 0) { // -1 b >a 0 b=a 1 a >b
-			valorMatricula = valorMatricula.subtract(valorMatricula.multiply(new BigDecimal(0.09)));
-		}
+//		BigDecimal valorMatricula = null;
+//		if (vehi.getTipo().equalsIgnoreCase("m")) {
+//			valorMatricula = vehi.getPrecio().add(vehi.getPrecio().multiply(new BigDecimal(0.1)));
+//		} else {
+//			if (vehi.getTipo().equalsIgnoreCase("a")) {
+//				valorMatricula = vehi.getPrecio().add(vehi.getPrecio().multiply(new BigDecimal(0.15)));
+//			}
+//		}
+//		BigDecimal valor = new BigDecimal(3000);
+//		if (valorMatricula.compareTo(valor) > 0) { // -1 b >a 0 b=a 1 a >b
+//			valorMatricula = valorMatricula.subtract(valorMatricula.multiply(new BigDecimal(0.09)));
+//		}
 		mat.setValorMatricula(valorMatricula);
 		mat.setPropietario(prop);
 		mat.setVehiculo(vehi);

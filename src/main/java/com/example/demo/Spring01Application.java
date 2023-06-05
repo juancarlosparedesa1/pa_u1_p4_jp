@@ -44,7 +44,7 @@ public class Spring01Application implements CommandLineRunner {
 		vehiculo1.setMarca("mercedes");
 		vehiculo1.setModelo("2023");
 		vehiculo1.setPlaca("abc-123");
-		vehiculo1.setPrecio(new BigDecimal(10000));
+		vehiculo1.setPrecio(new BigDecimal(20000));
 		vehiculo1.setTipo("m");
 		this.vehiculoService.insertar(vehiculo1);
 //		2. Actualizar dos atributos del vehículo creado en el punto 1.
