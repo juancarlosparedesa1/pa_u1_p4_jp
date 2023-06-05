@@ -1,68 +1,54 @@
-package com.example.demo.ferreteria.repository.modelo;
+package com.example.demo.supermaxi.repository.modelo;
 
 import java.math.BigDecimal;
 
 public class DetalleFactura {
-
 	private String id;
 	private Integer cantidad;
 	private BigDecimal precioUnitario;
 	private BigDecimal subtotal;
-	private Item item;
-	private Factura factura;
-
+	private Factura idVenta;
+	private Producto idProducto;
 	public String getId() {
 		return id;
 	}
-
 	public void setId(String id) {
 		this.id = id;
 	}
-
 	public Integer getCantidad() {
 		return cantidad;
 	}
-
 	public void setCantidad(Integer cantidad) {
 		this.cantidad = cantidad;
 	}
-
 	public BigDecimal getPrecioUnitario() {
 		return precioUnitario;
 	}
-
 	public void setPrecioUnitario(BigDecimal precioUnitario) {
 		this.precioUnitario = precioUnitario;
 	}
-
 	public BigDecimal getSubtotal() {
 		return subtotal;
 	}
-
 	public void setSubtotal(BigDecimal subtotal) {
 		this.subtotal = subtotal;
 	}
-
-	public Item getItem() {
-		return item;
+	public Factura getIdVenta() {
+		return idVenta;
 	}
-
-	public void setItem(Item item) {
-		this.item = item;
+	public void setIdVenta(Factura idVenta) {
+		this.idVenta = idVenta;
 	}
-
-	public Factura getFactura() {
-		return factura;
+	public Producto getIdProducto() {
+		return idProducto;
 	}
-
-	public void setFactura(Factura factura) {
-		this.factura = factura;
+	public void setIdProducto(Producto idProducto) {
+		this.idProducto = idProducto;
 	}
-
 	@Override
 	public String toString() {
-		return "DetalleFactura [id=" + id + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario
-				+ ", subtotal=" + subtotal + ", item=" + item + ", factura=" + factura + "]";
+		return "DetalleVenta [id=" + id + ", cantidad=" + cantidad + ", precioUnitario=" + precioUnitario
+				+ ", subtotal=" + subtotal + ", idVenta=" + idVenta + ", idProducto=" + idProducto + "]";
 	}
 
 }

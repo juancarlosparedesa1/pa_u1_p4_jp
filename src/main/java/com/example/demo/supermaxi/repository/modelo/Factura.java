@@ -1,4 +1,4 @@
-package com.example.demo.ferreteria.repository.modelo;
+package com.example.demo.supermaxi.repository.modelo;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -52,7 +52,7 @@ public class Factura {
 
 	@Override
 	public String toString() {
-		return "Factura [id=" + id + ", numero=" + numero + ", fecha=" + fecha + ", cedulaCliente=" + cedulaCliente
+		return "Venta [id=" + id + ", numero=" + numero + ", fecha=" + fecha + ", cedulaCliente=" + cedulaCliente
 				+ ", totalVenta=" + totalVenta + "]";
 	}
 
