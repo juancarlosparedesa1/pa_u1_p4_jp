@@ -3,8 +3,11 @@ package com.example.demo.ferreteria.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.example.demo.ferreteria.repository.modelo.Item;
 
+@Repository
 public class ItemRepositoryImpl implements ItemRepository {
 	private List<Item> baseDatos = new ArrayList<>();
 
@@ -16,10 +19,10 @@ public class ItemRepositoryImpl implements ItemRepository {
 	}
 
 	@Override
-	public Item Seleccionar(String id) {
+	public Item Seleccionar(String codigoBarras) {
 		Item itemEncontrado = new Item();
 		for (Item item : baseDatos) {
-			if (id.equals(item.getId())) {
+			if (codigoBarras.equals(item.getCodigoBarras())) {
 				itemEncontrado = item;
 			}
 
@@ -30,16 +33,22 @@ public class ItemRepositoryImpl implements ItemRepository {
 	@Override
 	public void actualizar(Item item) {
 		// TODO Auto-generated method stub
-		this.eliminar(item.getId());
+		this.eliminar(item.getCodigoBarras());
 		this.insertar(item);
 
 	}
 
 	@Override
-	public void eliminar(String id) {
-		Item item = this.Seleccionar(id);
+	public void eliminar(String codigoBarras) {
+		Item item = this.Seleccionar(codigoBarras);
 		baseDatos.remove(item);
 
+	}
+
+	@Override
+	public List<Item> SeleccionarTodos() {
+		// TODO Auto-generated method stub
+		return baseDatos;
 	}
 
 }

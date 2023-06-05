@@ -3,49 +3,48 @@ package com.example.demo.ferreteria.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import com.example.demo.ferreteria.repository.FacturaDetalleRepository;
 import com.example.demo.ferreteria.repository.modelo.DetalleFactura;
+import com.example.demo.ferreteria.repository.modelo.Item;
 
-@Repository
+@Service
 public class FacturaDetalleServiceImpl implements FacturaDetalleService {
 
-	private List<DetalleFactura> baseDatos = new ArrayList<>();
+	@Autowired
+	private FacturaDetalleRepository facturaDetalleRepository;
 
 	@Override
 	public void insertar(DetalleFactura detalleFactura) {
-		this.baseDatos.add(detalleFactura);
-
+		// TODO Auto-generated method stub
+		this.facturaDetalleRepository.insertar(detalleFactura);
 	}
 
 	@Override
 	public DetalleFactura Seleccionar(String id) {
-
-		DetalleFactura detalleFacturaEncontrado = new DetalleFactura();
-		for (DetalleFactura detFact : baseDatos) {
-			if (id.equals(detFact.getId())) {
-				detalleFacturaEncontrado = detFact;
-			}
-
-		}
-		return detalleFacturaEncontrado;
+		// TODO Auto-generated method stub
+		return this.facturaDetalleRepository.Seleccionar(id);
 	}
 
 	@Override
 	public void actualizar(DetalleFactura detalleFactura) {
-		// elimino
-		this.eliminar(detalleFactura.getId());
-		// inserto
-		this.insertar(detalleFactura);
-
+		// TODO Auto-generated method stub
+		this.facturaDetalleRepository.actualizar(detalleFactura);
 	}
 
 	@Override
 	public void eliminar(String id) {
-		// busco
-		DetalleFactura detFact = this.Seleccionar(id);
-		// elimino
-		baseDatos.remove(detFact);
+		// TODO Auto-generated method stub
+		this.facturaDetalleRepository.eliminar(id);
+	}
+
+	@Override
+	public void realizar(List<Item> producto, String cedula, String numero) {
+		// TODO Auto-generated method stub
+		// busco el producto
 
 	}
 
