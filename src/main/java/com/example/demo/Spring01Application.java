@@ -1,26 +1,32 @@
 package com.example.demo;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.example.demo.banco.repository.modelo.Cuenta;
-import com.example.demo.banco.service.CuentaService;
-import com.example.demo.banco.service.TransferenciaComisionService;
-import com.example.demo.banco.service.TransferenciaService;
+import com.example.demo.matriculacionVehiculos.repository.modelo.Matricula;
+import com.example.demo.matriculacionVehiculos.repository.modelo.Propietario;
+import com.example.demo.matriculacionVehiculos.repository.modelo.Vehiculo;
+import com.example.demo.matriculacionVehiculos.service.MatriculaService;
+import com.example.demo.matriculacionVehiculos.service.PropietarioService;
+import com.example.demo.matriculacionVehiculos.service.VehiculoService;
 
 @SpringBootApplication
 public class Spring01Application implements CommandLineRunner {
 
 	@Autowired
-	private CuentaService cuentaService;
+	private VehiculoService vehiculoService;
 	@Autowired
-	private TransferenciaService transferenciaService;
+	private PropietarioService propietarioService;
+	@Autowired
+	private MatriculaService matriculaService;
 
 	@Autowired
 //	@Qualifier("internacional")
@@ -32,33 +38,48 @@ public class Spring01Application implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+		// TODO Auto-generated method stub
+		// 1. Crear un vehículo.
+		Vehiculo vehiculo1 = new Vehiculo();
+		vehiculo1.setMarca("mercedes");
+		vehiculo1.setModelo("2023");
+		vehiculo1.setPlaca("abc-123");
+		vehiculo1.setPrecio(new BigDecimal(10000));
+		vehiculo1.setTipo("m");
+		this.vehiculoService.insertar(vehiculo1);
+//		2. Actualizar dos atributos del vehículo creado en el punto 1.
+		vehiculo1.setMarca("Chevrolet");
+		vehiculo1.setMarca("2022");
+		this.vehiculoService.actualizar(vehiculo1);
+//		3. Crear un propietario.
+		Propietario propietario1 = new Propietario();
+		propietario1.setApellido("Paredes");
+		propietario1.setFechaNacimiento(LocalDateTime.of(1993, 5, 10, 11, 11));
+		propietario1.setIdentificacion("1726890000");
+		propietario1.setNombre("Juan Carlos");
+		this.propietarioService.insertar(propietario1);
+//		4. Realizar una matrícula de vehículo a partir de los datos: cedula y placa del vehículo utilizados 
+//		en los puntos 1 y 3
+		this.matriculaService.realizar(propietario1.getIdentificacion(), vehiculo1.getPlaca());
 
-		// 1.Crear dos cuentas bancarias
-		Cuenta cuenta1 = new Cuenta();
-		cuenta1.setCedula("1726890000");
-		cuenta1.setFechaApertura(LocalDateTime.now());
-		cuenta1.setNumero("001");
-		cuenta1.setSaldo(new BigDecimal(200));
-		cuenta1.setTipo("A");
-		this.cuentaService.guardar(cuenta1);
-		Cuenta cuenta2 = new Cuenta();
-		cuenta2.setCedula("1726000000");
-		cuenta2.setFechaApertura(LocalDateTime.now());
-		cuenta2.setNumero("002");
-		cuenta2.setSaldo(new BigDecimal(500));
-		cuenta2.setTipo("C");
-		this.cuentaService.guardar(cuenta2);
-		System.out.println(cuenta1);
-		System.out.println(cuenta2);
+		// 5.imprimir matricula
+		List<Matricula> reporte = this.matriculaService.reporte();
+		for (Matricula matricula : reporte) {
+			System.out.println("Matricula----");
+			System.out.println("Fecha de matricula:" + matricula.getFechaMatricula());
+			System.out.println("Valor matricula :" + matricula.getValorMatricula().setScale(2, RoundingMode.HALF_DOWN));
+			System.out.println("Propietario------");
+			System.out.println("Nombre:" + propietario1.getNombre());
+			System.out.println("Apellido:" + propietario1.getApellido());
+			System.out.println("identificacion" + propietario1.getIdentificacion());
+			System.out.println("FechaNacimiento:" + propietario1.getFechaNacimiento());
+			System.out.println("Vehiculo--------");
+			System.out.println("Marca:" + vehiculo1.getMarca());
+			System.out.println("Modelo:" + vehiculo1.getMarca());
+			System.out.println("Precio:" + vehiculo1.getPrecio());
+			System.out.println("Tipo: " + vehiculo1.getTipo());
 
-		// 2.Realizar una transferencia con los datos del punto anterior
-		this.transferenciaService.realizar("001", "002", new BigDecimal(100));
-
-		// 3.Buscar e imprimir el saldo de la cuenta origen
-
-		System.out.println("Saldo cuenta origen: " + this.cuentaService.Seleccionar(cuenta1.getNumero()).getSaldo());
-		System.out.println("Saldo cuenta destino: " + this.cuentaService.Seleccionar(cuenta2.getNumero()).getSaldo());
-
+		}
 	}
 
 }
