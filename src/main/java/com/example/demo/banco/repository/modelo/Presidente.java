@@ -1,18 +1,17 @@
-package com.example.demo;
+package com.example.demo.banco.repository.modelo;
 
-import java.time.LocalDateTime;
-
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Profesor {
+@Scope("singleton")
+public class Presidente {
+
 	private String nombre;
 	private String apellido;
-	private LocalDateTime fechaNacimiento;
 	private String cedula;
-	
 
-	// set y get
+	// SET AND GET
 	public String getNombre() {
 		return nombre;
 	}
@@ -29,14 +28,6 @@ public class Profesor {
 		this.apellido = apellido;
 	}
 
-	public LocalDateTime getFechaNacimiento() {
-		return fechaNacimiento;
-	}
-
-	public void setFechaNacimiento(LocalDateTime fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
-	}
-
 	public String getCedula() {
 		return cedula;
 	}
@@ -45,11 +36,8 @@ public class Profesor {
 		this.cedula = cedula;
 	}
 
-	// to string
 	@Override
 	public String toString() {
-		return "Profesor [nombre=" + nombre + ", apellido=" + apellido + ", fechaNacimiento=" + fechaNacimiento
-				+ ", cedula=" + cedula + "]";
+		return "Presidente [nombre=" + nombre + ", apellido=" + apellido + ", cedula=" + cedula + "]";
 	}
-
 }
