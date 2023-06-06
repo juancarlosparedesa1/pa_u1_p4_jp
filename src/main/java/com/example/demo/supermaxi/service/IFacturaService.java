@@ -16,5 +16,7 @@ public interface IFacturaService {
 
 	public void eliminar(String id);
 
+	public List<Factura> reporteFacturas();
+
 	public void realizarVenta(List<Producto> productos, String cedulaCliente, String numeroVenta);
 }

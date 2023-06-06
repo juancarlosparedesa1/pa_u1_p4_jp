@@ -1,7 +1,6 @@
 package com.example.demo.supermaxi.service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,7 +90,15 @@ public class FacturaServiceImpl implements IFacturaService {
 		factura.setFecha(LocalDateTime.now());
 		factura.setId("01");
 		factura.setNumero(numeroVenta);
+		//inserto la factura en la bse de datos
+		this.facturaRepository.insertar(factura);
 
+	}
+
+	@Override
+	public List<Factura> reporteFacturas() {
+		// TODO Auto-generated method stub
+		return this.facturaRepository.seleccionarTodos();
 	}
 
 }

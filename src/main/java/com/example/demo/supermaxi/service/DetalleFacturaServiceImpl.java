@@ -7,6 +7,7 @@ import com.example.demo.supermaxi.repository.modelo.DetalleFactura;
 @Service
 public class DetalleFacturaServiceImpl implements IDetalleFacturaService {
 
+	
 	@Override
 	public void insertar(DetalleFactura detfactura) {
 		// TODO Auto-generated method stub

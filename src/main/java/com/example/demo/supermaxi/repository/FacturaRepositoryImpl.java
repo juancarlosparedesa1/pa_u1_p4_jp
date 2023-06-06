@@ -49,4 +49,10 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 
 	}
 
+	@Override
+	public List<Factura> seleccionarTodos() {
+		// TODO Auto-generated method stub
+		return baseDatos;
+	}
+
 }
