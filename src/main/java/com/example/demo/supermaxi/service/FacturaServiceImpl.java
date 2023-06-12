@@ -69,18 +69,19 @@ public class FacturaServiceImpl implements IFacturaService {
 
 		// si voy a vender busco el producto,para buscar el producto recorro la lista de
 		// productos
-		for (Producto productobd : listaproductos) {
-			Producto prodBuscado = this.productoRepository.buscar(productobd.getCodigoBarras());
-			// valido que el stock del producto a vender
-			if (prodBuscado.getStock() <= productobd.getStock()) {
+		for (Producto productoVenta : listaproductos) {
+			// busco el producto en la base de datos por el codigo de barras
+			Producto prodBuscado = this.productoRepository.buscar(productoVenta.getCodigoBarras());
+			// valido que el stock del producto a vender y que no sea nulo
+			if (prodBuscado != null && (prodBuscado.getStock() >= productoVenta.getStock())) {
 				// resto la cantidad de producto buscado(vender)-cantidad de producto de la bd
-				Integer stock = productobd.getStock() - prodBuscado.getStock();
+				Integer nuevostock = prodBuscado.getStock() - productoVenta.getStock();
 				// actualizo el stock del producto
-				productobd.setStock(stock);
-				this.productoRepository.actualizar(productobd);
+				prodBuscado.setStock(nuevostock);
+				this.productoRepository.actualizar(prodBuscado);
 
 			} else {
-				System.out.println("Stock no disponible");
+				System.out.println("Producto no encontrado o Stock no disponible");
 			}
 		}
 
@@ -90,7 +91,7 @@ public class FacturaServiceImpl implements IFacturaService {
 		factura.setFecha(LocalDateTime.now());
 		factura.setId("01");
 		factura.setNumero(numeroVenta);
-		//inserto la factura en la bse de datos
+		// inserto la factura en la bse de datos
 		this.facturaRepository.insertar(factura);
 
 	}
